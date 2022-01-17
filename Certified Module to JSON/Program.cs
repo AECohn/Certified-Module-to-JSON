@@ -38,11 +38,10 @@ namespace Certified_Module_to_JSON
             {
                 From = text.IndexOf("{");
                 To = text.IndexOf("BSJB");
-                Protocol = text.Substring(From, To - 1);
+                Protocol = text.Substring(From, To-From-3);
             }
             else
             {
-                
                 Protocol = text.Substring(From, To - From + 6);
             }
 
