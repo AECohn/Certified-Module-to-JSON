@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using 
+//using Newtonsoft.Json;
+ 
 
 namespace Certified_Module_to_JSON
 {
@@ -23,16 +24,23 @@ namespace Certified_Module_to_JSON
 
             //Console.WriteLine(text);
 
-            string test;
+            string Protocol;
 
             int From = text.IndexOf(@"{""CrestronSerialDeviceApi""");
 
             int To = text.IndexOf("}}]}}");
 
-            test = text.Substring(From, To-From+6);
+            //int To = text.IndexOf("\x02\x00\x00\x00");
 
-            Console.WriteLine(test);
-        
+            Protocol = text.Substring(From, To-From+6);
+
+            //Console.WriteLine(Path.GetDirectoryName(new_file));
+
+            File.WriteAllText(Path.ChangeExtension(Path.GetFullPath(File_Location), ".json"), Protocol);
+            
+
+            //Console.WriteLine(test);
+
         }
     }
 }
