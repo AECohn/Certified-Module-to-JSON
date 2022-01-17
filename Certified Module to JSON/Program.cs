@@ -42,7 +42,7 @@ namespace Certified_Module_to_JSON
             }
             else
             {
-                Protocol = text.Substring(From, To - From + 6);
+                Protocol = text.Substring(From, To - From + 5);
             }
 
             File.WriteAllText(Path.ChangeExtension(Path.GetFullPath(File_Location), "_Protocol.json"), Protocol); //change to only do this if no json is detected
