@@ -14,6 +14,8 @@ namespace Certified_Module_to_JSON
             string new_file = Path.ChangeExtension(File_Location, ".zip").Trim('"');
 
             File.Copy(File_Location, new_file);
+
+            ZipFile.ExtractToDirectory(new_file, Path.GetDirectoryName(new_file));
         }
     }
 }
