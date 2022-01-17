@@ -9,11 +9,11 @@ namespace Certified_Module_to_JSON
         static void Main(string[] args)
         {
             Console.WriteLine("Add pkg file");
-            string File_Location = Console.ReadLine();
+            string File_Location = Console.ReadLine().Trim('"');
 
-            string new_file = Path.ChangeExtension(File_Location, ".zip");
+            string new_file = Path.ChangeExtension(File_Location, ".zip").Trim('"');
 
-            File.Copy(File_Location.Trim('"'), new_file.Trim('"'));
+            File.Copy(File_Location, new_file);
         }
     }
 }
