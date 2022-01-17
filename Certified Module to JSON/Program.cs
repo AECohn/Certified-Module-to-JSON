@@ -45,7 +45,9 @@ namespace Certified_Module_to_JSON
                 Protocol = text.Substring(From, To - From + 6);
             }
 
-            File.WriteAllText(Path.ChangeExtension(Path.GetFullPath(File_Location), "_Protocol.json"), Protocol);
+            File.WriteAllText(Path.ChangeExtension(Path.GetFullPath(File_Location), "_Protocol.json"), Protocol); //change to only do this if no json is detected
+
+            //delete pdf if it's found
 
             //Console.WriteLine(Protocol);
         }
