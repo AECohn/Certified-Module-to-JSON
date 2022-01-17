@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using 
 
 namespace Certified_Module_to_JSON
 {
@@ -20,7 +21,18 @@ namespace Certified_Module_to_JSON
             byte[] bytes = System.IO.File.ReadAllBytes(Path.ChangeExtension(File_Location, ".dll").Trim('"'));
             string text = System.Text.Encoding.UTF8.GetString(bytes);
 
-            Console.WriteLine(text);
+            //Console.WriteLine(text);
+
+            string test;
+
+            int From = text.IndexOf(@"{""CrestronSerialDeviceApi""");
+
+            int To = text.IndexOf("}}]}}");
+
+            test = text.Substring(From, To-From+6);
+
+            Console.WriteLine(test);
+        
         }
     }
 }
