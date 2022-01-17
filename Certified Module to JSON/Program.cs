@@ -16,6 +16,11 @@ namespace Certified_Module_to_JSON
             File.Copy(File_Location, new_file);
 
             ZipFile.ExtractToDirectory(new_file, Path.GetDirectoryName(new_file));
+
+            byte[] bytes = System.IO.File.ReadAllBytes(Path.ChangeExtension(File_Location, ".dll").Trim('"'));
+            string text = System.Text.Encoding.UTF8.GetString(bytes);
+
+            Console.WriteLine(text);
         }
     }
 }
