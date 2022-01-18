@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace Certified_Module_to_JSON
 {
@@ -58,7 +59,10 @@ namespace Certified_Module_to_JSON
                             Protocol = text.Substring(From, To - From + 5);
                         }
                         Console.WriteLine("Json extracted from dll");
-                        File.WriteAllText(json, FormatJson(Protocol));
+                        File.WriteAllText(json, JsonPrettify(Protocol));
+
+                        
+
                     }
                     catch (Exception ex)
                     { 
@@ -68,27 +72,17 @@ namespace Certified_Module_to_JSON
             }
         }
 
-        public static string FormatJson(string json, string indent = "  ") //Created by yallie (https://stackoverflow.com/a/57100143)
+
+        public static string JsonPrettify(string json)
         {
-            var indentation = 0;
-            var quoteCount = 0;
-            var escapeCount = 0;
-
-            var result =
-                from ch in json ?? string.Empty
-                let escaped = (ch == '\\' ? escapeCount++ : escapeCount > 0 ? escapeCount-- : escapeCount) > 0
-                let quotes = ch == '"' && !escaped ? quoteCount++ : quoteCount
-                let unquoted = quotes % 2 == 0
-                let colon = ch == ':' && unquoted ? ": " : null
-                let nospace = char.IsWhiteSpace(ch) && unquoted ? string.Empty : null
-                let lineBreak = ch == ',' && unquoted ? ch + Environment.NewLine + string.Concat(Enumerable.Repeat(indent, indentation)) : null
-                let openChar = (ch == '{' || ch == '[') && unquoted ? ch + Environment.NewLine + string.Concat(Enumerable.Repeat(indent, ++indentation)) : ch.ToString()
-                let closeChar = (ch == '}' || ch == ']') && unquoted ? Environment.NewLine + string.Concat(Enumerable.Repeat(indent, --indentation)) + ch : ch.ToString()
-                select colon ?? nospace ?? lineBreak ?? (
-                    openChar.Length > 1 ? openChar : closeChar
-                );
-
-            return string.Concat(result);
+            using (var stringReader = new StringReader(json))
+            using (var stringWriter = new StringWriter())
+            {
+                JsonTextReader jsonReader = new JsonTextReader(stringReader);
+                JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
+                jsonWriter.WriteToken(jsonReader);
+                return stringWriter.ToString();
+            }
         }
     }
 }
