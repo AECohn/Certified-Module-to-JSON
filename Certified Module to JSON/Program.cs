@@ -75,8 +75,8 @@ namespace Certified_Module_to_JSON
 
         public static string JsonPrettify(string json)
         {
-            using (var stringReader = new StringReader(json))
-            using (var stringWriter = new StringWriter())
+            using (StringReader stringReader = new StringReader(json))
+            using (StringWriter stringWriter = new StringWriter())
             {
                 JsonTextReader jsonReader = new JsonTextReader(stringReader);
                 JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
