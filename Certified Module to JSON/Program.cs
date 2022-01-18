@@ -1,15 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace Certified_Module_to_JSON
 {
     internal class Program
     {
-    
         private static void Main(string[] args)
         {
             while (true)
@@ -59,29 +56,13 @@ namespace Certified_Module_to_JSON
                             Protocol = text.Substring(From, To - From + 5);
                         }
                         Console.WriteLine("Json extracted from dll");
-                        File.WriteAllText(json, JsonPrettify(Protocol));
-
-                        
-
+                        File.WriteAllText(json, JToken.Parse(Protocol).ToString());
                     }
                     catch (Exception ex)
-                    { 
-                        Console.WriteLine(ex.Message); 
+                    {
+                        Console.WriteLine(ex.Message);
                     }
                 }
-            }
-        }
-
-
-        public static string JsonPrettify(string json)
-        {
-            using (StringReader stringReader = new StringReader(json))
-            using (StringWriter stringWriter = new StringWriter())
-            {
-                JsonTextReader jsonReader = new JsonTextReader(stringReader);
-                JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
-                jsonWriter.WriteToken(jsonReader);
-                return stringWriter.ToString();
             }
         }
     }
