@@ -60,7 +60,7 @@ namespace Certified_Module_to_JSON
                         {
                             From = text.IndexOf("{");
                             To = text.IndexOf("BSJB");
-                            Protocol = text.Substring(From, To - From - 3);
+                            Protocol = text.Substring(From, To - From ); //This seems table, but, consider finding location of '}' before BSJB, and subtracting appropriate amount. Otherwise, consider using stacks (track {} and []) to evaluate when JSON ends
                         }
                         else
                         {
