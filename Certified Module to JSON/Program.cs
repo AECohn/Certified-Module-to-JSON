@@ -20,6 +20,17 @@ namespace Certified_Module_to_JSON
                 string pdf = Path.ChangeExtension(File_Location, ".pdf").Trim('"');
                 string json = Path.ChangeExtension(File_Location, ".json").Trim('"');
 
+                if (Path.GetExtension(File_Location) != ".pkg")
+                {
+                    continue;
+                }
+
+                if (File.Exists(json))
+                {
+                    Console.WriteLine("this json has already been extracted");
+                    continue;
+                }
+
                 File.Copy(File_Location, zip);
 
                 ZipFile.ExtractToDirectory(zip, Path.GetDirectoryName(zip));
@@ -62,6 +73,10 @@ namespace Certified_Module_to_JSON
                     {
                         Console.WriteLine(ex.Message);
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Json extracted from pkg");
                 }
             }
         }
